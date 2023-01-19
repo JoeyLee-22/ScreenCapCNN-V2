@@ -3,6 +3,7 @@
 __pycache__/
 productive_images/
 unproductive_images/
+videos/
 test.py
 config.py
 *.h5
