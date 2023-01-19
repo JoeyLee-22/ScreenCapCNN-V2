@@ -5,12 +5,15 @@ from PIL import Image
 import time
 from progress.bar import IncrementalBar
 
-def download_youtube_frames(delete_frames=False, frames_needed=0, link="", frames_skipped=200):
+def download_youtube_frames(delete_frames=False, frames_needed=0, frames_skipped=200):
     path_and_foldername = "unproductive_images"
     vidcap = cv2.VideoCapture('videos/minecraft.mp4')
     success,image = vidcap.read()
     currentframe = 0
-   
+    
+    if not os.path.exists(path_and_foldername): os.mkdir(path_and_foldername)
+    if not os.path.exists("videos"): os.mkdir("videos")
+
     if delete_frames:
         while True:
             user_input = input("\nCONFIRM UNPRODUCTIVE DATA DELETION (y/n): ")
@@ -22,7 +25,7 @@ def download_youtube_frames(delete_frames=False, frames_needed=0, link="", frame
                 break
 
     if frames_needed>0:
-        bar = IncrementalBar('DOWNLOADING FRAMES:', max = frames_needed)
+        bar = IncrementalBar('\nDOWNLOADING FRAMES:', max = frames_needed)
         start_time = time.time()
         while success:
             bar.next()
@@ -38,7 +41,7 @@ def download_youtube_frames(delete_frames=False, frames_needed=0, link="", frame
         bar.finish()
         end_time = time.time() - start_time
         
-        print("DOWNLAOD TIME FOR {} IMAGES:".format(frames_needed), end = " ")
+        print("DOWNLAOD TIME FOR {} FRAMES:".format(frames_needed), end = " ")
         if end_time > 3600:
             print('%dhr, %.1fmin\n' % (int(end_time/3600),((end_time-int(end_time/3600)*3600)/60)))
         elif end_time > 60:
