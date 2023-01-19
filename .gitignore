@@ -1,14 +1,10 @@
 # Byte-compiled / optimized / DLL files
 .vscode
 __pycache__/
+productive_images/
+unproductive_images/
 test.py
 config.py
-screenshots/
-resized_train_images/
-resized_test_images/
-train_images/
-test_images/ 
-dataset/ 
 *.h5
 *.py[cod]
 *$py.class
