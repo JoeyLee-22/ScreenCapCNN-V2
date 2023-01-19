@@ -4,9 +4,11 @@ import shutil
 import time
 from progress.bar import IncrementalBar
 
-def download_rand_image(delete_images=False, num_to_download=0, image_width=500, image_height=500):
+def download_rand_image(delete_images=False, num_to_download=0, image_width=0, image_height=0):
     path_and_foldername = "productive_images"
     url = "https://picsum.photos/{}/{}".format(image_width, image_height) # website to generate random photos given size
+    
+    if not os.path.exists(path_and_foldername): os.mkdir(path_and_foldername)
     
     if delete_images:
         while True:
@@ -27,7 +29,7 @@ def download_rand_image(delete_images=False, num_to_download=0, image_width=500,
             bar.next()
             response = requests.get(url)
             if response.status_code == 200:
-                file_name = 'productive_{}.jpg'.format(i+1+num_images)
+                file_name = 'image{}.jpg'.format(i+1+num_images)
                 file_path = path_and_foldername + "/" + file_name
                 with open(file_path, 'wb') as f:
                     f.write(response.content)
