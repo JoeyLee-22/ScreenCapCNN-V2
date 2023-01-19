@@ -24,8 +24,9 @@ def download_youtube_frames(delete_frames=False, frames_needed=0, frames_skipped
             elif user_input=='n':
                 break
 
+    print()
     if frames_needed>0:
-        bar = IncrementalBar('\nDOWNLOADING FRAMES:', max = frames_needed)
+        bar = IncrementalBar('DOWNLOADING FRAMES:', max = frames_needed)
         start_time = time.time()
         while success:
             bar.next()
@@ -41,7 +42,7 @@ def download_youtube_frames(delete_frames=False, frames_needed=0, frames_skipped
         bar.finish()
         end_time = time.time() - start_time
         
-        print("DOWNLAOD TIME FOR {} FRAMES:".format(frames_needed), end = " ")
+        print("DOWNLOAD TIME FOR {} FRAMES:".format(frames_needed), end = " ")
         if end_time > 3600:
             print('%dhr, %.1fmin\n' % (int(end_time/3600),((end_time-int(end_time/3600)*3600)/60)))
         elif end_time > 60:
