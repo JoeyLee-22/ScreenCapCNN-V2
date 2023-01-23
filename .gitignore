@@ -6,6 +6,8 @@ unproductive_images/
 videos/
 test.py
 config.py
+*.png
+*.jpg
 *.h5
 *.py[cod]
 *$py.class
