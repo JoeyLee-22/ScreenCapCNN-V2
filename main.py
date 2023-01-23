@@ -7,9 +7,11 @@ import os
 delete_images = False
 images_needed = 0
 total_images = len(os.listdir('productive_images')) + len(os.listdir('unproductive_images'))
-num_train = 100
-num_test = 10
-epochs = 5
+save_model = True
+load_model = False
+num_train = 1500
+num_test = 500
+epochs = 20
 
 download_youtube_frames(delete_frames=delete_images, frames_needed=images_needed)
 img = Image.open("unproductive_images/frame1.jpg")
@@ -23,4 +25,4 @@ download_rand_image(delete_images=delete_images, num_to_download=images_needed, 
 #     print("\nIMAGE SIZES SAME\n")
 
 cnn = convolutional_neural_network(img_height, img_width)
-cnn.run(num_train=num_train, num_test=num_test, epochs=epochs)
+cnn.run(save_model=save_model, load_model=load_model, num_train=num_train, num_test=num_test, epochs=epochs)
