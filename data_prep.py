@@ -11,12 +11,12 @@ def convert_images(array, label, start_index, end_index, type_array):
     for i in range(start_index, end_index):
         bar.next()
         img = Image.open('productive_images/image{}.jpg'.format(i+1))
-        array.append(asarray(img)/255.0)
+        array.append(asarray(img)/255.0) # divide by 255 to normalize between 0 and 1
         label.append(0)
     for i in range(start_index, end_index):
         bar.next()
         img = Image.open('unproductive_images/frame{}.jpg'.format(i+1))
-        array.append(asarray(img)/255.0)
+        array.append(asarray(img)/255.0) # divide by 255 to normalize between 0 and 1
         label.append(1)
     bar.finish()
     end_time = time.time() - start_time
