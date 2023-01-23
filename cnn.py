@@ -17,41 +17,50 @@ class convolutional_neural_network():
     def classify(self, image):
         return np.argmax(self.model.predict(image))
 
-    def run(self, num_train=0, num_test=0, epochs=10, load_model=False, save_model=False, train=True, evaluate=True, plot=True):        
+    def run(self, save_model=False, load_model=False, train=True, evaluate=True, plot=True, num_train=0, num_test=0, epochs=10):        
         (train_images, train_labels), (test_images, test_labels) = load_data(num_train, num_test, self.height, self.width)
 
-        classifier = Sequential()
+        if not load_model and train:
+            self.model = Sequential()
 
-        classifier.add(Conv2D(32, (3, 3), input_shape = (self.height, self.width, 3), activation = 'relu'))
-        classifier.add(MaxPooling2D(pool_size = (2, 2)))
+            self.model.add(Conv2D(32, (3, 3), input_shape = (self.height, self.width, 3), activation = 'relu'))
+            self.model.add(MaxPooling2D(pool_size = (2, 2)))
 
-        classifier.add(Conv2D(32, (3, 3), activation = 'relu'))
-        classifier.add(MaxPooling2D(pool_size=(2, 2)))
+            self.model.add(Conv2D(32, (3, 3), activation = 'relu'))
+            self.model.add(MaxPooling2D(pool_size=(2, 2)))
 
-        classifier.add(Conv2D(64, (3, 3), activation = 'relu'))
-        classifier.add(MaxPooling2D(pool_size=(2, 2)))
+            self.model.add(Conv2D(64, (3, 3), activation = 'relu'))
+            self.model.add(MaxPooling2D(pool_size=(2, 2)))
 
-        classifier.add(Flatten())
+            self.model.add(Flatten())
 
-        classifier.add(Dense(units = 64, activation = 'relu'))
+            self.model.add(Dense(units = 64, activation = 'relu'))
 
-        classifier.add(Dropout(0.5))
+            self.model.add(Dropout(0.5))
 
-        classifier.add(Dense(1))
-        classifier.add(Activation('sigmoid'))
-        
-        classifier.compile(optimizer = 'adam', loss = 'binary_crossentropy', metrics = ['accuracy'])
+            self.model.add(Dense(1))
+            self.model.add(Activation('sigmoid'))
+            
+            self.model.compile(optimizer = 'adam', loss = 'binary_crossentropy', metrics = ['accuracy'])
 
-        start_time = time.time()            
-        hist = classifier.fit(train_images, train_labels, epochs=epochs, validation_data=(test_images, test_labels))
-        end_time = time.time() - start_time
+            self.model.summary()
 
-        if end_time > 3600:
-            print('Total Training Time: %dhr %.1fmin\n\n' % (int(end_time/3600),((end_time-int(end_time/3600)*3600)/60)))
-        elif end_time > 60:
-            print("Total Training Time: %dmin %.2fs\n\n" % ((end_time/60), (end_time-int(end_time/60)*60)))
-        else:
-            print("Total Training Time: %.2fs\n\n" % end_time)
+            start_time = time.time()            
+            hist = self.model.fit(train_images, train_labels, epochs=epochs, validation_data=(test_images, test_labels))
+            end_time = time.time() - start_time
+
+            if end_time > 3600:
+                print('Total Training Time: %dhr %.1fmin\n\n' % (int(end_time/3600),((end_time-int(end_time/3600)*3600)/60)))
+            elif end_time > 60:
+                print("Total Training Time: %dmin %.2fs\n\n" % ((end_time/60), (end_time-int(end_time/60)*60)))
+            else:
+                print("Total Training Time: %.2fs\n\n" % end_time)
+
+        if load_model and train:
+            self.model = keras_load_model('%s.h5' % self.model_name)
+
+        if save_model:
+            self.model.save('%s.h5' % self.model_name)
 
         # if plot and not load_model:            
         #     f = plt.figure()
