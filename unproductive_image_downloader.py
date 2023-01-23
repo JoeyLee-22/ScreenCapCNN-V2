@@ -5,7 +5,7 @@ from PIL import Image
 import time
 from progress.bar import IncrementalBar
 
-def download_youtube_frames(delete_frames=False, frames_needed=0, frames_skipped=200):
+def download_youtube_frames(delete_frames=False, frames_needed=0, frames_skipped=250):
     path_and_foldername = "unproductive_images"
     vidcap = cv2.VideoCapture('videos/minecraft.mp4')
     success,image = vidcap.read()
