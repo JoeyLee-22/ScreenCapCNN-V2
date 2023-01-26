@@ -13,7 +13,7 @@ def convert_images(array, label, start_index, end_index, type_array):
         img = Image.open('productive_images/image{}.jpg'.format(i+1))
         array.append(asarray(img)/255.0) # divide by 255 to normalize between 0 and 1
         label.append(0)
-    for i in range(start_index, end_index):
+        
         bar.next()
         img = Image.open('unproductive_images/frame{}.jpg'.format(i+1))
         array.append(asarray(img)/255.0) # divide by 255 to normalize between 0 and 1
@@ -45,5 +45,10 @@ def load_data(num_train, num_test, height, width):
     convert_images(test_images, test_labels, int(num_train/2), int(num_train/2)+int(num_test/2), 'TEST') 
     test_images = np.asarray(test_images)
     test_labels = np.asarray(test_labels)
+
+    print(train_images.shape)
+    print(train_labels.shape)
+    print(test_images.shape)
+    print(test_labels.shape)
 
     return (train_images, train_labels), (test_images, test_labels)
