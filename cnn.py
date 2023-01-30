@@ -15,7 +15,7 @@ class convolutional_neural_network():
         self.model_name = 'TwoClassClassificationModel'
 
     def classify(self, image):
-        return np.argmax(self.model.predict(image))
+        return self.model.predict(image.reshape(1,self.height,self.width,3))
 
     def run(self, save_model=False, load_model=False, train=True, evaluate=True, plot=True, num_train=0, num_test=0, epochs=10):        
         (train_images, train_labels), (test_images, test_labels) = load_data(num_train, num_test, self.height, self.width)
@@ -43,7 +43,7 @@ class convolutional_neural_network():
             
             self.model.compile(optimizer = 'adam', loss = 'binary_crossentropy', metrics = ['accuracy'])
 
-            self.model.summary()
+            # self.model.summary()
 
             start_time = time.time()            
             hist = self.model.fit(train_images, train_labels, epochs=epochs, validation_data=(test_images, test_labels))
@@ -55,8 +55,8 @@ class convolutional_neural_network():
                 print("Total Training Time: %dmin %.2fs\n\n" % ((end_time/60), (end_time-int(end_time/60)*60)))
             else:
                 print("Total Training Time: %.2fs\n\n" % end_time)
-
-        if load_model and train:
+                
+        if load_model:
             self.model = keras_load_model('%s.h5' % self.model_name)
 
         if save_model:
