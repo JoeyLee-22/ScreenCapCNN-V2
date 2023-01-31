@@ -50,5 +50,6 @@ def load_data(num_train, num_test, height, width):
     print(train_labels.shape)
     print(test_images.shape)
     print(test_labels.shape)
+    print()
 
     return (train_images, train_labels), (test_images, test_labels)
