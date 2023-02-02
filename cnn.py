@@ -26,8 +26,8 @@ class convolutional_neural_network():
             self.model.add(Conv2D(32, (3, 3), input_shape = (self.height, self.width, 3), activation = 'relu'))
             self.model.add(MaxPooling2D(pool_size = (2, 2)))
 
-            self.model.add(Conv2D(32, (3, 3), activation = 'relu'))
-            self.model.add(MaxPooling2D(pool_size=(2, 2)))
+            # self.model.add(Conv2D(32, (3, 3), activation = 'relu'))
+            # self.model.add(MaxPooling2D(pool_size=(2, 2)))
 
             self.model.add(Conv2D(64, (3, 3), activation = 'relu'))
             self.model.add(MaxPooling2D(pool_size=(2, 2)))
