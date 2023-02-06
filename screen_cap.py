@@ -3,6 +3,7 @@ import time
 import cv2
 import pyautogui
 from PIL import Image
+import os
 
 def start_monitor(cnn_instance, seconds=300):    
     productive_counter = 1
@@ -29,6 +30,13 @@ def start_monitor(cnn_instance, seconds=300):
             print("\n\n{}: Unproductive".format(result))
             resized_screenshot.save('unproductive_screenshots/unproductive_screenshot{}.png'.format(unproductive_counter)) 
             unproductive_counter+=1
+            
+            title = "Unproductive Actvity Detected"
+            message = "Check ____ to confirm"
+            command = f'''
+            osascript -e 'display notification "{message}" with title "{title}"'
+            '''
+            os.system(command)
         for secs in range (seconds):
             time.sleep(0.99)
             print(str(seconds-int(secs)) + "/" + str(seconds), end='\r')
